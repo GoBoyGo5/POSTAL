@@ -36,6 +36,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define itoa rsp_itoa
+
 #ifdef WIN32
 // !!! FIXME: use SDL_snprintf() in SDL2.
 #ifndef snprintf
