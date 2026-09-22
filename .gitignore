@@ -11,3 +11,4 @@ Backup1/
 *.suo
 *.opt
 *.sdf
+*.vcxproj.user
