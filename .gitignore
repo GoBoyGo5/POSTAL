@@ -1,0 +1,13 @@
+bin/
+Build/
+Testing/
+.vs/
+Backup/
+testing/
+ipch/
+Backup1/
+*.plg
+*.ncb
+*.suo
+*.opt
+*.sdf

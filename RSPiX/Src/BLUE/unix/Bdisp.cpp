@@ -27,7 +27,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#include "SDL.h"
+#include <SDL3/SDL.h>
+#include <SDL3/SDL_render.h>
 #include "Blue.h"
 #include "ORANGE/CDT/slist.h"
 
@@ -534,10 +535,9 @@ extern void rspQueryVideoModeReset(void)
 
 		// Attempt to grab user's current desktop resolution instead of forcing 640x480
 #ifndef MOBILE
-		SDL_DisplayMode dm_Mode;
-		int i_Result = SDL_GetDesktopDisplayMode(0, &dm_Mode);
-		if (!i_Result)
-			addMode(dm_Mode.w, dm_Mode.h, 8);
+		const SDL_DisplayMode* dm_Mode = SDL_GetDesktopDisplayMode(SDL_GetPrimaryDisplay());
+		if (dm_Mode)
+			addMode(dm_Mode->w, dm_Mode->h, 8);
 		else // Fall back to 640x480
 #endif
 			addMode(640, 480, 8);
@@ -592,13 +592,17 @@ extern int16_t rspQueryVideoMode(			// Returns 0 for each valid mode, then non-z
 	}
 
 
-static SDL_Renderer *createRendererToggleVsync(SDL_Window *window, const int index, bool vsync)
+static SDL_Renderer *createRendererToggleVsync(SDL_Window *window, const char *index, Uint32 flags)
 {
     SDL_Renderer *retval = NULL;
-    if (vsync)
-        retval = SDL_CreateRenderer(window, index, SDL_RENDERER_PRESENTVSYNC);
+	if (flags) {
+		retval = SDL_CreateRenderer(window, index);
+		if (retval != NULL) {
+			SDL_SetRenderVSync(retval, 1);
+		}
+	}
     if (!retval)
-        retval = SDL_CreateRenderer(window, index, 0);
+        retval = SDL_CreateRenderer(window, index);
     return retval;
 }
 
@@ -606,7 +610,7 @@ static SDL_Renderer *createRendererByName(SDL_Window *window, const char *name)
 {
     const bool vsync = !rspCommandLine("novsync");
     if (name == NULL)
-        return createRendererToggleVsync(window, -1, vsync);
+        return createRendererToggleVsync(window, NULL, vsync);
     else
     {
         const int max = SDL_GetNumRenderDrivers();
@@ -665,7 +669,9 @@ extern int16_t rspSetVideoMode(	// Returns 0 if successfull, non-zero otherwise
         for (size_t i = 0; i < 256; i++)
             apeApp[i].a = 0xFF;
 
-        SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
+        //SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
+		// TODO: Fix
+		SDL_SetTextureScaleMode(sdlTexture, SDL_SCALEMODE_LINEAR);
 
         if (sPixelDoubling)
         {

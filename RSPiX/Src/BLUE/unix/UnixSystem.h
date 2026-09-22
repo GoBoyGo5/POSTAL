@@ -30,7 +30,7 @@
 #ifndef UNIXSYSTEM_H
 #define UNIXSYSTEM_H
 
-#include "SDL.h"
+#include <SDL3/SDL.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -254,7 +254,7 @@ inline char *ltoa(uint32_t l, char *buf, int bufsize)
     return(buf);
 }
 
-inline char *itoa(int l, char *buf, int bufsize)
+inline char *rsp_itoa(int l, char *buf, int bufsize)
 {
     snprintf(buf, bufsize, "%d", l);
     return(buf);

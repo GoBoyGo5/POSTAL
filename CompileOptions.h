@@ -456,7 +456,7 @@
 
 	#if TARGET == JAPAN_ADD_ON
 		#if defined(SPAWN)
-			#define EDITOR_DISABLED
+			//#define EDITOR_DISABLED
 		#else
 			#define PROMPT_FOR_ORIGINAL_CD
 			#define START_MENU_ADDON_ITEM
@@ -464,16 +464,16 @@
 		#endif
 	#elif TARGET == SUPER_POSTAL
 		#if defined(SPAWN)
-			#define EDITOR_DISABLED
+			//#define EDITOR_DISABLED
 		#else
 			#define TITLE_SHOW_DISTRIBUTOR
 		#endif
 	#elif TARGET == POSTAL_PLUS
 		#if defined(SPAWN)
-			#define EDITOR_DISABLED
+			//#define EDITOR_DISABLED
 		#elif defined (DEMO)
-			#define EDITOR_DISABLED
-			#define MULTIPLAYER_DISABLED
+			//#define EDITOR_DISABLED
+			//#define MULTIPLAYER_DISABLED
 			#define ENABLE_PLAY_SPECIFIC_REALMS_ONLY
 			#define SHOW_EXIT_SCREEN
 		#elif defined(WIN32)
@@ -481,8 +481,8 @@
 			//#define START_MENU_ADDON_ITEM
 		#endif
 	#elif TARGET == POSTAL_2015
-		#define MULTIPLAYER_REMOVED
-		#define EDITOR_REMOVED
+		//#define MULTIPLAYER_REMOVED
+		//#define EDITOR_REMOVED
 		//#define LOADLEVEL_REMOVED
 		#define START_MENU_ADDON_ITEM
 	#endif
@@ -490,11 +490,11 @@
 
 // Turn off multiplayer on MacOSX/Linux...not worth it.  --ryan.
 //  This just takes it out of the menus...code is still compiled in.
-#if 1 //PLATFORM_UNIX
-    #define MULTIPLAYER_REMOVED
-	#define EDITOR_REMOVED
-    //#define LOADLEVEL_REMOVED  // bleh, no file dialog thingey.  :/
-#endif
+//#if 1 //PLATFORM_UNIX
+//    #define MULTIPLAYER_REMOVED
+//	#define EDITOR_REMOVED
+//    //#define LOADLEVEL_REMOVED  // bleh, no file dialog thingey.  :/
+//#endif
 
 
 ////////////////////////////////////////////////////////////////////////////////

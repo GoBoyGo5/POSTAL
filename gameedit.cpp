@@ -2234,8 +2234,9 @@ static bool DoInput(		// Returns true when done.
 			if (ie.type == RInputEvent::Key && ie.sUsed == FALSE)
 				{
 				// Force alpha keys to upper keys
-				if (isalpha(ie.lKey & 0xffff))
-					ie.lKey = (ie.lKey & 0xffff0000) | toupper(ie.lKey & 0xffff);
+				int32_t sRawKey = (ie.lKey & 0xffff);
+				if (sRawKey >= 0 && sRawKey <= 255 && isalpha(sRawKey))
+					ie.lKey = (ie.lKey & 0xffff0000) | toupper(sRawKey);
 
 				// In case we're gonna scroll, set amount based on CTRL key status
 				int16_t sScrollX = EDIT_SCROLL_AMOUNT;
@@ -4355,8 +4356,9 @@ static void PlayRealm(
 							if (ie.type == RInputEvent::Key)
 								{
 								// Force alpha keys to upper keys
-								if (isalpha(ie.lKey & 0xffff))
-									ie.lKey = (ie.lKey & 0xffff0000) | toupper(ie.lKey & 0xffff);
+								int32_t sRawKey = (ie.lKey & 0xffff);
+								if (sRawKey >= 0 && sRawKey <= 255 && isalpha(sRawKey))
+									ie.lKey = (ie.lKey & 0xffff0000) | toupper(sRawKey);
 
 								switch (ie.lKey)
 									{

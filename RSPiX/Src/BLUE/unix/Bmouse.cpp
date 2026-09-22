@@ -28,10 +28,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#include "SDL.h"
-
+#include <SDL3/SDL.h>
 #include "BLUE/Blue.h"
-
 #include "ORANGE/CDT/QUEUE.H"
 
 extern SDL_Window *sdlWindow;
